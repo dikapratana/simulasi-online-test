@@ -1,0 +1,91 @@
+import { getUserData } from "../../../utils/storage";
+import { twMerge } from "../../../utils/tw-merge";
+
+type HeaderFragemntProps = {
+  step: number;
+};
+
+export default function HeaderFragment({ step }: HeaderFragemntProps) {
+  const userData = getUserData();
+  const dataStep = [
+    {
+      title: "Student",
+      subTitle: "Profile",
+    },
+    {
+      title: "Question",
+      subTitle: "(1-6)",
+    },
+    {
+      title: "Question",
+      subTitle: "(7-12)",
+    },
+    {
+      title: "Question",
+      subTitle: "(13-18)",
+    },
+    {
+      title: "Question",
+      subTitle: "(19-24)",
+    },
+    {
+      title: "Writing",
+      subTitle: "task",
+    },
+  ];
+
+  return (
+    <>
+      {userData && (
+        <div className="flex flex-col items-center mb-8 text-base font-medium">
+          <h4>12:01</h4>
+          <h4>Date {userData?.created_at}</h4>
+        </div>
+      )}
+      <div className="flex items-center justify-center">
+        {dataStep.map((item, key) => {
+          const number = key + 1;
+          const beforeActive = step >= number && number > 1;
+          const afterActive = step > number && number < dataStep.length;
+
+          return (
+            <div
+              key={key}
+              className={twMerge(
+                "flex items-center w-full",
+                beforeActive
+                  ? "before:left-0 before:top-0 before:w-full before:h-1 before:bg-blue-100"
+                  : "before:left-0 before:top-0 before:w-full before:h-1 before:bg-white",
+                afterActive
+                  ? "after:left-0 after:top-0 after:w-full after:h-1 after:bg-blue-100"
+                  : "after:left-0 after:top-0 after:w-full after:h-1 after:bg-white",
+              )}
+            >
+              <div>
+                <div
+                  className={twMerge(
+                    "h-14 w-14 text-xl font-medium  rounded-full justify-center items-center flex",
+                    step >= number
+                      ? "bg-blue-100 text-blue-500"
+                      : "bg-neutral-100 text-neutral-800",
+                  )}
+                >
+                  {number}
+                </div>
+              </div>
+              <div
+                className={twMerge(
+                  "text-sm font-medium mx-2",
+                  step >= number ? "text-blue-500 " : " text-neutral-800",
+                )}
+              >
+                <h1>{item.title}</h1>
+                <p>{item.subTitle}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+}
