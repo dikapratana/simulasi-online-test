@@ -48,8 +48,9 @@ export default function ProfileFragment(props: ProfileFragmentProps) {
           error={form.errors["age"]?.message}
         />
       </div>
-      <div className="flex justify-end gap-4 mt-8">
+      <div className="flex justify-end mt-6 sm:mt-8">
         <Button
+          className="w-full sm:w-auto"
           disabled={!form.isValid || form.isPending}
           onClick={form.handleSubmit(form.onSubmit)}
         >

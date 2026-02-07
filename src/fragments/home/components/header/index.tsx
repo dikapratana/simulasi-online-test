@@ -1,3 +1,4 @@
+import { formatDate } from "../../../../utils/date";
 import { getUserData } from "../../../../utils/storage";
 import { twMerge } from "../../../../utils/tw-merge";
 
@@ -15,18 +16,6 @@ function formatDuration(totalSeconds: number) {
   if (hours > 0)
     return `${padded(hours)}:${padded(minutes)}:${padded(seconds)}`;
   return `${padded(minutes)}:${padded(seconds)}`;
-}
-
-function formatDate(value?: string) {
-  if (!value) return "-";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-
-  return date.toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
 }
 
 export default function HeaderFragment({
@@ -91,10 +80,10 @@ export default function HeaderFragment({
               <div>
                 <div
                   className={twMerge(
-                    "h-12 w-12 text-lg font-medium  rounded-full justify-center items-center flex",
+                    "h-8 w-8 md:h-12 md:w-12 text-sm md:text-lg font-medium rounded-full justify-center items-center flex",
                     step >= number
                       ? "bg-blue-100 text-blue-500"
-                      : "bg-neutral-100 text-neutral-800",
+                      : "bg-neutral-200 text-neutral-800",
                   )}
                 >
                   {number}
@@ -102,7 +91,7 @@ export default function HeaderFragment({
               </div>
               <div
                 className={twMerge(
-                  "text-sm font-medium mx-2",
+                  "text-sm font-medium mx-2 hidden md:block",
                   step >= number ? "text-blue-500 " : " text-neutral-800",
                 )}
               >

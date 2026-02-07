@@ -28,13 +28,16 @@ export default function useController() {
   );
 
   const [isFinished, setIsFinished] = useState(!!resultData);
-  const [elapsedSeconds, setElapsedSeconds] = useState(() =>
-    getTimerStorage(),
+  const [elapsedSeconds, setElapsedSeconds] = useState(() => getTimerStorage());
+
+  const { data } = useGetQuestion(
+    {
+      student_id: Number(userdata?.id),
+      set_question: userdata?.set_question ?? "",
+    },
+    !!(userdata?.id && userdata?.set_question),
   );
 
-  const { data } = useGetQuestion();
-
-  
   const questionsPerStep = 6;
 
   const currentQuestions = useMemo(() => {
@@ -46,12 +49,10 @@ export default function useController() {
     return data.slice(startIndex, endIndex);
   }, [data, step]);
 
-  
   useEffect(() => {
     setStepStorage(step);
   }, [step]);
 
-  
   useEffect(() => {
     if (step < 2 || isFinished) return;
 
@@ -66,7 +67,6 @@ export default function useController() {
     return () => window.clearInterval(interval);
   }, [step, isFinished]);
 
-  
   const handleReset = () => {
     clearUserData();
     clearFormData();
@@ -87,7 +87,6 @@ export default function useController() {
     setElapsedSeconds,
     userdata,
     formData,
-
 
     currentQuestions,
     allQuestions: data ?? [],

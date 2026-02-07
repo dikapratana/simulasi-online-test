@@ -76,22 +76,26 @@ export default function QuestionFragment({
     };
 
     return (
-      <div className="mt-10 flex flex-col items-center justify-center">
-        <div className="w-full max-w-4xl border border-blue-400 rounded p-10 text-center">
-          <h2 className="text-xl font-semibold text-sky-500 mb-2">Thank You</h2>
+      <div className="mt-6 sm:mt-10 flex flex-col items-center justify-center px-4">
+        <div className="w-full max-w-4xl border border-blue-400 rounded p-6 sm:p-8 md:p-10 text-center">
+          <h2 className="text-lg sm:text-xl font-semibold text-sky-500 mb-2">
+            Thank You
+          </h2>
           <p className="text-sm text-neutral-800">
             Your result will be sent to
           </p>
-          <p className="text-base font-semibold text-neutral-800 mt-1">ELC</p>
+          <p className="text-base sm:text-lg font-semibold text-neutral-800 mt-1">
+            ELC
+          </p>
 
-          <div className="mt-8 space-y-4 text-sm text-neutral-800">
+          <div className="mt-6 sm:mt-8 space-y-4 text-sm text-neutral-800">
             <div>
               <p className="text-xs text-neutral-600">Test time</p>
-              <p className="text-lg font-semibold">{timeText}</p>
+              <p className="text-base sm:text-lg font-semibold">{timeText}</p>
             </div>
             <div>
               <p className="text-xs text-neutral-600">Test Date</p>
-              <p className="text-lg font-semibold">{dateText}</p>
+              <p className="text-base sm:text-lg font-semibold">{dateText}</p>
             </div>
           </div>
         </div>
@@ -107,8 +111,8 @@ export default function QuestionFragment({
   }
 
   return (
-    <div>
-      <h1 className="text-red-500 text-xl font-medium text-center mt-8 mb-2">
+    <div className="px-2 sm:px-4">
+      <h1 className="text-red-500 text-lg sm:text-xl font-medium text-center mt-6 sm:mt-8 mb-2">
         English Placement Test
       </h1>
 
@@ -126,20 +130,20 @@ export default function QuestionFragment({
       )}
 
       {!isEssayStep && (
-        <div className="grid md:grid-cols-2 gap-0 mt-12 md:divide-x md:divide-gray-200">
+        <div className="grid md:grid-cols-2 gap-0 mt-8 sm:mt-12">
           {reorderedQuestions.map((question, index) => (
             <div
               key={question.id}
               className={twMerge(
                 "flex flex-col justify-start md:px-6 pb-8",
-                index % 2 === 0 ? "md:pr-6" : "md:pl-6",
+                index % 2 === 0 ? "md:pr-6 md:border-r md:border-gray-200" : "md:pl-6",
               )}
             >
               <p className="font-medium mb-3 min-h-14">
                 {(step - 2) * 6 + question._index + 1}. {question.question}
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {question.option.map((opt) => {
                   const isSelected = answers[question.id] === opt.id;
 
@@ -149,7 +153,7 @@ export default function QuestionFragment({
                       type="button"
                       onClick={() => handleSelect(question.id, opt.id)}
                       className={
-                        "w-full text-left px-4 py-2 rounded-full border text-sm transition cursor-pointer " +
+                        "w-full text-left px-4 py-2 rounded-full border text-xs sm:text-sm transition cursor-pointer " +
                         (isSelected
                           ? "bg-green-1 text-white border-green-1"
                           : "border-gray-300 hover:bg-gray-100")
@@ -181,10 +185,12 @@ export default function QuestionFragment({
         </div>
       )}
 
-      <div className="flex justify-end gap-4 items-center mt-10">
-        <Button onClick={handlePrev}>Previous</Button>
+      <div className="flex flex-col sm:flex-row sm:justify-end gap-3 sm:gap-4 items-stretch sm:items-center mt-10">
+        <Button className="w-full sm:w-auto" onClick={handlePrev}>
+          Previous
+        </Button>
 
-        <Button onClick={handleNext} disabled={isPending}>
+        <Button className="w-full sm:w-auto" onClick={handleNext} disabled={isPending}>
           {step >= 6 ? "Finish" : "Next"}
         </Button>
       </div>

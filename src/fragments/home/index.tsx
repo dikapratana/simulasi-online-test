@@ -18,12 +18,12 @@ export default function HomeFeatures() {
   } = useController();
 
   return (
-    <div className="bg-neutral-1 h-screen overflow-y-auto">
+    <div className="bg-neutral-1 min-h-screen overflow-y-auto">
       <div className="flex bg-white justify-center shadow-md py-4 items-center">
-        <div className="container flex justify-between">
-          <img src={IMAGES.Logo} className="h-12" alt="logo" />
+        <div className="container flex justify-between items-center px-4 sm:px-6">
+          <img src={IMAGES.Logo} className="h-10 sm:h-12" alt="logo" />
           <span
-            className="flex gap-1 text-sm font-medium text-primary items-center justify-center cursor-pointer"
+            className="flex gap-1 text-xs sm:text-sm font-medium text-primary items-center justify-center cursor-pointer"
             onClick={handleReset}
           >
             <RefreshCw className="w-5 h-5 text-primary" /> Reset Form
@@ -31,7 +31,7 @@ export default function HomeFeatures() {
         </div>
       </div>
       <div className="flex justify-center py-8">
-        <div className="container">
+        <div className="container px-4 sm:px-6">
           {!isFinished && (
             <HeaderFragment step={step} elapsedSeconds={elapsedSeconds} />
           )}
