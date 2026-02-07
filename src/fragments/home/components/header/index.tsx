@@ -1,11 +1,38 @@
-import { getUserData } from "../../../utils/storage";
-import { twMerge } from "../../../utils/tw-merge";
+import { getUserData } from "../../../../utils/storage";
+import { twMerge } from "../../../../utils/tw-merge";
 
 type HeaderFragemntProps = {
   step: number;
+  elapsedSeconds?: number;
 };
 
-export default function HeaderFragment({ step }: HeaderFragemntProps) {
+function formatDuration(totalSeconds: number) {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const padded = (value: number) => String(value).padStart(2, "0");
+  if (hours > 0)
+    return `${padded(hours)}:${padded(minutes)}:${padded(seconds)}`;
+  return `${padded(minutes)}:${padded(seconds)}`;
+}
+
+function formatDate(value?: string) {
+  if (!value) return "-";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+
+  return date.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+}
+
+export default function HeaderFragment({
+  step,
+  elapsedSeconds,
+}: HeaderFragemntProps) {
   const userData = getUserData();
   const dataStep = [
     {
@@ -36,10 +63,10 @@ export default function HeaderFragment({ step }: HeaderFragemntProps) {
 
   return (
     <>
-      {userData && (
+      {userData && step >= 2 && typeof elapsedSeconds === "number" && (
         <div className="flex flex-col items-center mb-8 text-base font-medium">
-          <h4>12:01</h4>
-          <h4>Date {userData?.created_at}</h4>
+          <h4>Time to work {formatDuration(elapsedSeconds)}</h4>
+          <h4>Date {formatDate(userData?.created_at)}</h4>
         </div>
       )}
       <div className="flex items-center justify-center">
@@ -55,16 +82,16 @@ export default function HeaderFragment({ step }: HeaderFragemntProps) {
                 "flex items-center w-full",
                 beforeActive
                   ? "before:left-0 before:top-0 before:w-full before:h-1 before:bg-blue-100"
-                  : "before:left-0 before:top-0 before:w-full before:h-1 before:bg-white",
+                  : "before:left-0 before:top-0 before:w-full before:h-1 before:bg-neutral-1",
                 afterActive
                   ? "after:left-0 after:top-0 after:w-full after:h-1 after:bg-blue-100"
-                  : "after:left-0 after:top-0 after:w-full after:h-1 after:bg-white",
+                  : "after:left-0 after:top-0 after:w-full after:h-1 after:bg-neutral-1",
               )}
             >
               <div>
                 <div
                   className={twMerge(
-                    "h-14 w-14 text-xl font-medium  rounded-full justify-center items-center flex",
+                    "h-12 w-12 text-lg font-medium  rounded-full justify-center items-center flex",
                     step >= number
                       ? "bg-blue-100 text-blue-500"
                       : "bg-neutral-100 text-neutral-800",

@@ -1,12 +1,15 @@
-import Button from "../../../components/button";
-import { FormField } from "../../../components/form/formfield/form-field";
-import InputField from "../../../components/form/input";
+import Button from "../../../../components/button";
+import { FormField } from "../../../../components/form/formfield/form-field";
+import InputField from "../../../../components/form/input";
 import useController from "./hooks/controller";
 
 export default function ProfileFragment(props: ProfileFragmentProps) {
   const { form } = useController(props);
   return (
     <>
+      <h1 className="text-lg font-bold text-center mb-6 mt-8">
+        Student Detail
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormField
           name="name"
@@ -47,7 +50,7 @@ export default function ProfileFragment(props: ProfileFragmentProps) {
       </div>
       <div className="flex justify-end gap-4 mt-8">
         <Button
-          disabled={!form.isValid}
+          disabled={!form.isValid || form.isPending}
           onClick={form.handleSubmit(form.onSubmit)}
         >
           Next

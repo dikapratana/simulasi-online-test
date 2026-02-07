@@ -3,43 +3,42 @@ import Swal, { type SweetAlertIcon } from "sweetalert2";
 type AlertOptions = {
   title: string;
   text?: string;
+  html?: string;
   icon?: SweetAlertIcon;
   confirmText?: string;
   cancelText?: string;
 };
 
-/* ======================
-   Base Config
-====================== */
+
 const baseConfig = {
   allowOutsideClick: false,
   allowEscapeKey: false,
-  allowEnterKey: false,
   showCloseButton: false,
   confirmButtonColor: "#2b7fff",
 };
 
-/* ======================
-   Basic Alert
-====================== */
+
 export const showAlert = ({
   title,
   text,
+  html,
   icon = "info",
   confirmText = "OK",
 }: AlertOptions) => {
+  const formattedHtml =
+    html ?? (text ? text.replace(/\n/g, "<br/>") : undefined);
+
   return Swal.fire({
     ...baseConfig,
     title,
-    text,
+    text: formattedHtml ? undefined : text,
+    html: formattedHtml,
     icon,
     confirmButtonText: confirmText,
   });
 };
 
-/* ======================
-   Success
-====================== */
+
 export const showSuccess = (title: string, text?: string) => {
   return showAlert({
     title,
@@ -48,9 +47,7 @@ export const showSuccess = (title: string, text?: string) => {
   });
 };
 
-/* ======================
-   Error
-====================== */
+
 export const showError = (title: string, text?: string) => {
   return showAlert({
     title,
@@ -59,9 +56,7 @@ export const showError = (title: string, text?: string) => {
   });
 };
 
-/* ======================
-   Confirm Dialog
-====================== */
+
 export const showConfirm = ({
   title,
   text,

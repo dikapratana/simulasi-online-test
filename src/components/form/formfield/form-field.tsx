@@ -39,7 +39,7 @@ export function FormField<T extends FieldValues, C extends object>({
         <Component
           {...(componentProps as C)}
           {...field}
-          value={field?.value}
+          value={field?.value ?? ""}
           onChange={field.onChange}
           placeholder={placeholder}
           className={className}

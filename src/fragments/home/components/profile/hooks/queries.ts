@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { PostProfile } from "../../../../repositories/profile";
+import { PostProfile } from "../../../../../repositories/profile";
 
 export function usePostProfile() {
   const result = useMutation({
