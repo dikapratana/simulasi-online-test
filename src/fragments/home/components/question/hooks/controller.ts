@@ -173,7 +173,7 @@ export default function useController(params?: ControllerParams) {
 
   const handlePrev = () => {
     if (!params) return;
-    if (params.step <= 1) return;
+    if (params.step <= 2) return;
     params.setStep((prev) => prev - 1);
   };
 

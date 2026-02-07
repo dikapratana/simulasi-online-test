@@ -148,7 +148,6 @@ export default function QuestionFragment({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {question.option.map((opt) => {
                   const isSelected = answers[question.id] === opt.id;
-                  console.log(answers, question.id);
 
                   return (
                     <button
@@ -189,7 +188,11 @@ export default function QuestionFragment({
       )}
 
       <div className="flex flex-col sm:flex-row sm:justify-end gap-3 sm:gap-4 items-stretch sm:items-center mt-10">
-        <Button className="w-full sm:w-auto" onClick={handlePrev}>
+        <Button
+          className="w-full sm:w-auto"
+          onClick={handlePrev}
+          disabled={step <= 2}
+        >
           Previous
         </Button>
 
