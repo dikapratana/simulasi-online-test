@@ -12,7 +12,7 @@ export const PostProfile = async (
   }
 
   const res = await api.post<BaseResponse<UserData>>(
-    "/api/student/create",
+    "/student/create",
     formData,
     {
       headers: {

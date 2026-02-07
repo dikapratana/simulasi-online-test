@@ -136,7 +136,9 @@ export default function QuestionFragment({
               key={question.id}
               className={twMerge(
                 "flex flex-col justify-start md:px-6 pb-8",
-                index % 2 === 0 ? "md:pr-6 md:border-r md:border-gray-200" : "md:pl-6",
+                index % 2 === 0
+                  ? "md:pr-6 md:border-r md:border-gray-200"
+                  : "md:pl-6",
               )}
             >
               <p className="font-medium mb-3 min-h-14">
@@ -146,6 +148,7 @@ export default function QuestionFragment({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {question.option.map((opt) => {
                   const isSelected = answers[question.id] === opt.id;
+                  console.log(answers, question.id);
 
                   return (
                     <button
@@ -190,7 +193,11 @@ export default function QuestionFragment({
           Previous
         </Button>
 
-        <Button className="w-full sm:w-auto" onClick={handleNext} disabled={isPending}>
+        <Button
+          className="w-full sm:w-auto"
+          onClick={handleNext}
+          disabled={isPending}
+        >
           {step >= 6 ? "Finish" : "Next"}
         </Button>
       </div>
