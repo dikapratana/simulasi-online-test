@@ -3,7 +3,7 @@ import api from "../../utils/axios";
 export const GetQuestion = async (
   params?: QuestionParams,
 ): Promise<Question[]> => {
-  const res = await api.get<Question[]>("/question/list", {
+  const res = await api.get<Question[]>("/api/question/list", {
     params,
   });
   return res.data;
@@ -24,7 +24,7 @@ export const PostStudentAnswer = async (
   }
 
   const res = await api.post<BaseResponse<{ message?: string }>>(
-    "/studentanswer/create",
+    "/api/studentanswer/create",
     formData,
     {
       headers: {
