@@ -30,7 +30,11 @@ export default function useController() {
   const [isFinished, setIsFinished] = useState(!!resultData);
   const [elapsedSeconds, setElapsedSeconds] = useState(() => getTimerStorage());
 
-  const { data } = useGetQuestion(
+  const {
+    data,
+    isLoading: isQuestionsLoading,
+    isError: isQuestionsError,
+  } = useGetQuestion(
     {
       student_id: Number(userdata?.id),
       set_question: userdata?.set_question ?? "",
@@ -90,5 +94,7 @@ export default function useController() {
 
     currentQuestions,
     allQuestions: data ?? [],
+    isQuestionsLoading,
+    isQuestionsError,
   };
 }

@@ -15,6 +15,8 @@ export default function HomeFeatures() {
     elapsedSeconds,
     currentQuestions,
     allQuestions,
+    isQuestionsLoading,
+    isQuestionsError,
   } = useController();
 
   return (
@@ -39,14 +41,28 @@ export default function HomeFeatures() {
           <div className="py-8">
             {step === 1 && <ProfileFragment step={step} setStep={setStep} />}
             {step >= 2 && (
-              <QuestionFragment
-                allQuestions={allQuestions}
-                questions={currentQuestions}
-                step={step}
-                setStep={setStep}
-                isFinished={isFinished}
-                onFinish={() => setIsFinished(true)}
-              />
+              <>
+                {isQuestionsError ? (
+                  <div className="flex items-center justify-center py-12">
+                    <p className="text-sm text-red-600">
+                      Failed to load question. Try refreshing the page.
+                    </p>
+                  </div>
+                ) : isQuestionsLoading ? (
+                  <div className="flex items-center justify-center py-12">
+                    <p className="text-sm text-neutral-700">Loading...</p>
+                  </div>
+                ) : (
+                  <QuestionFragment
+                    allQuestions={allQuestions}
+                    questions={currentQuestions}
+                    step={step}
+                    setStep={setStep}
+                    isFinished={isFinished}
+                    onFinish={() => setIsFinished(true)}
+                  />
+                )}
+              </>
             )}
           </div>
         </div>
