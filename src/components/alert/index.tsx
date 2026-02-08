@@ -9,14 +9,12 @@ type AlertOptions = {
   cancelText?: string;
 };
 
-
 const baseConfig = {
   allowOutsideClick: false,
   allowEscapeKey: false,
   showCloseButton: false,
   confirmButtonColor: "#2b7fff",
 };
-
 
 export const showAlert = ({
   title,
@@ -38,7 +36,6 @@ export const showAlert = ({
   });
 };
 
-
 export const showSuccess = (title: string, text?: string) => {
   return showAlert({
     title,
@@ -47,7 +44,6 @@ export const showSuccess = (title: string, text?: string) => {
   });
 };
 
-
 export const showError = (title: string, text?: string) => {
   return showAlert({
     title,
@@ -55,7 +51,6 @@ export const showError = (title: string, text?: string) => {
     icon: "error",
   });
 };
-
 
 export const showConfirm = ({
   title,
@@ -71,7 +66,7 @@ export const showConfirm = ({
     showCancelButton: true,
     confirmButtonText: confirmText,
     cancelButtonText: cancelText,
-    confirmButtonColor: "#e8b33e",
+    confirmButtonColor: "#2b7fff",
     cancelButtonColor: "#e8b33e",
   });
 };
